@@ -17,9 +17,10 @@ jobs:
         id: count-commits
         run: |
           commit_count=$(git rev-list --count HEAD)
-          echo "::set-output name=commit_count::$commit_count"
+          echo "::set-output name=ibrahim::$commit_count"
 
       - name: Set commit count environment variable
         run: |
           echo "COMMIT_COUNT=${{ steps.count-commits.outputs.commit_count }}" >> $GITHUB_ENV
 
+          # commit_count

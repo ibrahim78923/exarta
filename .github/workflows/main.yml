@@ -1,35 +1,25 @@
-name: Commit Counter and Check GitHub ENV
+name: Count Commits and Store in Variable
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   count-commits:
-    name: Commit Counter
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-        
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for accurate commit count
+
       - name: Count commits
-        id: commit_count
+        id: count-commits
         run: |
-          COMMIT_COUNT=$(git rev-list --count HEAD)
-          echo "::set-output name=commit_count::$COMMIT_COUNT"
+          commit_count=$(git rev-list --count HEAD)
+          echo "::set-output name=commit_count::$commit_count"
 
-      - name: Store commit count
-        run: echo "COMMIT_COUNT=${{ steps.commit_count.outputs.commit_count }}" >> $GITHUB_ENV
-        
-      # Optionally, you can store the count in a file
-      # - name: Store commit count in file
-      #   run: echo "${{ steps.commit_count.outputs.commit_count }}" > commit_count.txt
+      - name: Set commit count environment variable
+        run: |
+          echo "COMMIT_COUNT=${{ steps.count-commits.outputs.commit_count }}" >> $GITHUB_ENV
 
-  check-env:
-    name: Check GitHub ENV
-    runs-on: ubuntu-latest
-    needs: count-commits
-    steps:
-      - name: Show GitHub ENV
-        run: echo "$GITHUB_ENV"

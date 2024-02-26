@@ -23,34 +23,3 @@ jobs:
         run: |
           echo "commit_count=${{ steps.count-commits.outputs.commit_count }}" >> $GITHUB_ENV
 
-      - name: Print $GITHUB_ENV
-        run: echo "$GITHUB_ENV"
-
-
-
-
-# name: Count Commits and Store in Variable
-
-# on:
-#   push:
-#     branches: [main]
-
-# jobs:
-#   count-commits:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v3
-#         with:
-#           fetch-depth: 0  # Fetch all history for accurate commit count
-
-#       - name: Count commits
-#         id: count-commits
-#         run: |
-#          commit_count=$(git rev-list --count HEAD)
-#          echo "::set-output name=commit_count::$commit_count"
-
-#       - name: Set commit count environment variable
-#         run: |
-#           echo "commit_count=${{ steps.count-commits.outputs.commit_count }}" >> $GITHUB_ENV
-

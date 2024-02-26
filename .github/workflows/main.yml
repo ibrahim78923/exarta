@@ -16,8 +16,8 @@ jobs:
       - name: Count commits
         id: count-commits
         run: |
-         commit_count=$(git rev-list --count HEAD)
-         echo "::set-output name=commit_count::$commit_count"
+         var_ibrahim=$(git rev-list --count HEAD)
+         echo "::set-output name=var_ibrahim::$var_ibrahim"
 
       - name: Set commit count environment variable
         run: |
@@ -28,6 +28,6 @@ jobs:
           
 
 
-          
+
 
       

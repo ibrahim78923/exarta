@@ -12,13 +12,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Read Counter Value
-        id: read_counter
-        run: echo "::set-env name=COUNTER::$(git rev-list --count HEAD)"
+      # - name: Read Counter Value
+      #   id: read_counter
+      #   run: echo "::set-env name=COUNTER::$(git rev-list --count HEAD)"
 
-      - name: Increment Counter
-        id: increment_counter
-        run: echo "Counter value: $COUNTER"
+      # - name: Increment Counter
+      #   id: increment_counter
+      #   run: echo "Counter value: $COUNTER"
 
       - name: Commit Counter Increment
         run: |

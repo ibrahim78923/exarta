@@ -1,31 +1,20 @@
-name: Increment Counter on Push
+name: Count Commits
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  increment-counter:
+  count-commits:
     runs-on: ubuntu-latest
     steps:
-      - name: Check for existing counter value
-        id: counter-check
-        run: |
-          if [[ -n "${{ github.event.repository.environment.COUNTER }}" ]]; then
-            echo "::set-output name=counter::$((${{ github.event.repository.environment.COUNTER }} + 1))"
-          else
-            echo "::set-output name=counter::1"
-          fi
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Set counter environment variable
-        run: |
-          echo "COUNTER=${{ steps.counter-check.outputs.counter }}" >> $GITHUB_ENV
+      - name: Count Commits
+        id: count
+        run: echo "::set-output name=commit_count::$(git rev-list --count HEAD)"
 
-
-
-
-
-
-          
-
-
+      - name: Display Commit Count
+        run: echo "Commit count: ${{ steps.count.outputs.commit_count }}"

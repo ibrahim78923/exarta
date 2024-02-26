@@ -16,16 +16,16 @@ jobs:
       - name: Count commits
         id: count-commits
         run: |
-         commit_count=$(git rev-list --count HEAD)
-         echo "::set-output name=commit_count::$commit_count"
+          commit_count=$(git rev-list --count HEAD)
+          echo "::set-output name=commit_count::$commit_count"
 
       - name: Set commit count environment variable
         run: |
           echo "commit_count=${{ steps.count-commits.outputs.commit_count }}" >> $GITHUB_ENV
 
-      - name: Print commit count to file
-        run: |
-          echo "${{ steps.count-commits.outputs.commit_count }}" > version.txt
+      - name: Print $GITHUB_ENV to version.txt
+        run: echo "$GITHUB_ENV" > version.txt
+
 
 
 

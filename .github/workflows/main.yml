@@ -18,12 +18,12 @@ jobs:
           COMMIT_COUNT=$(git rev-list --count HEAD)
           echo "::set-output name=commit_count::$COMMIT_COUNT"
 
-      # - name: Store commit count
-      #   run: echo "COMMIT_COUNT=${{ steps.commit_count.outputs.commit_count }}" >> $GITHUB_ENV
+      - name: Store commit count
+        run: echo "COMMIT_COUNT=${{ steps.commit_count.outputs.commit_count }}" >> $GITHUB_ENV
         
       # Optionally, you can store the count in a file
-      - name: Store commit count in file
-        run: echo "${{ steps.commit_count.outputs.commit_count }}" > commit_count.txt
+      # - name: Store commit count in file
+      #   run: echo "${{ steps.commit_count.outputs.commit_count }}" > commit_count.txt
 
 
 

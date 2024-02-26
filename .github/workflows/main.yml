@@ -21,7 +21,7 @@ jobs:
 
       - name: Set commit count environment variable
         run: |
-          echo "var_ibrahim=${{ steps.count-commits.outputs.commit_count }}" >> $GITHUB_ENV
+          echo "var_ibrahim=${{ steps.count-commits.outputs.var_ibrahim }}" >> $GITHUB_ENV
 
           # commit_count
 

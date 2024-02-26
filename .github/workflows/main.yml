@@ -16,18 +16,47 @@ jobs:
       - name: Count commits
         id: count-commits
         run: |
-         var_ibrahim=$(git rev-list --count HEAD)
-         echo "::set-output name=var_ibrahim::$var_ibrahim"
+         commit_count=$(git rev-list --count HEAD)
+         echo "::set-output name=commit_count::$commit_count"
 
       - name: Set commit count environment variable
         run: |
-          echo "var_ibrahim=${{ steps.count-commits.outputs.var_ibrahim }}" >> $GITHUB_ENV
+          echo "commit_count=${{ steps.count-commits.outputs.commit_count }}" >> $GITHUB_ENV
 
-          # commit_count
-
-          
-
-
+      - name: Print commit count to file
+        run: |
+          echo "${{ steps.count-commits.outputs.commit_count }}" > version.txt
 
 
-      
+
+
+
+
+
+
+
+# name: Count Commits and Store in Variable
+
+# on:
+#   push:
+#     branches: [main]
+
+# jobs:
+#   count-commits:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0  # Fetch all history for accurate commit count
+
+#       - name: Count commits
+#         id: count-commits
+#         run: |
+#          commit_count=$(git rev-list --count HEAD)
+#          echo "::set-output name=commit_count::$commit_count"
+
+#       - name: Set commit count environment variable
+#         run: |
+#           echo "commit_count=${{ steps.count-commits.outputs.commit_count }}" >> $GITHUB_ENV
+

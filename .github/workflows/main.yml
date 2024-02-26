@@ -1,16 +1,17 @@
-name: Commit Counter
+name: Commit Counter and Check GitHub ENV
 
 on:
   push:
     branches:
-      - main  # Adjust the branch name as needed
+      - main
 
 jobs:
   count-commits:
+    name: Commit Counter
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
         
       - name: Count commits
         id: commit_count
@@ -25,6 +26,10 @@ jobs:
       # - name: Store commit count in file
       #   run: echo "${{ steps.commit_count.outputs.commit_count }}" > commit_count.txt
 
-
-
-
+  check-env:
+    name: Check GitHub ENV
+    runs-on: ubuntu-latest
+    needs: count-commits
+    steps:
+      - name: Show GitHub ENV
+        run: echo "$GITHUB_ENV"

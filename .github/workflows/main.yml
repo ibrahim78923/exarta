@@ -1,20 +1,26 @@
-name: Count Commits
+name: Commit Counter
 
 on:
   push:
     branches:
-      - main
+      - main  # Adjust the branch name as needed
 
 jobs:
   count-commits:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Count commits
+        id: commit_count
+        run: |
+          COMMIT_COUNT=$(git rev-list --count HEAD)
+          echo "::set-output name=commit_count::$COMMIT_COUNT"
 
-      - name: Count Commits
-        id: count
-        run: echo "::set-output name=commit_count::$(git rev-list --count HEAD)"
-
-      - name: Display Commit Count
-        run: echo "Commit count: ${{ steps.count.outputs.commit_count }}"
+      - name: Store commit count
+        run: echo "COMMIT_COUNT=${{ steps.commit_count.outputs.commit_count }}" >> $GITHUB_ENV
+        
+      # Optionally, you can store the count in a file
+      # - name: Store commit count in file
+      #   run: echo "${{ steps.commit_count.outputs.commit_count }}" > commit_count.txt
